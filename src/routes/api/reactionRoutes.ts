@@ -1,8 +1,11 @@
+import { Router } from 'express';
 import { Request, Response } from 'express';
 import Reaction from '../../models/Reaction';
 
+const reactionRoutes = Router();
+
 // Create new reaction
-export const createReaction = async (req: Request, res: Response): Promise<void> => {
+const createReaction = async (req: Request, res: Response): Promise<void> => {
   try {
     const reaction = new Reaction(req.body);
     await reaction.save();
@@ -14,7 +17,7 @@ export const createReaction = async (req: Request, res: Response): Promise<void>
 };
 
 // Delete reaction
-export const deleteReaction = async (req: Request, res: Response): Promise<void> => {
+const deleteReaction = async (req: Request, res: Response): Promise<void> => {
   try {
     const reaction = await Reaction.findByIdAndDelete(req.params.id);
     if (!reaction) {
@@ -29,7 +32,7 @@ export const deleteReaction = async (req: Request, res: Response): Promise<void>
 };
 
 // Get all reactions
-export const getReactions = async (req: Request, res: Response): Promise<void> => {
+const getReactions = async (req: Request, res: Response): Promise<void> => {
   try {
     const reactions = await Reaction.find({});
     res.status(200).json(reactions); // Sending successful response
@@ -38,3 +41,10 @@ export const getReactions = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ error: error.message }); // Sending error response
   }
 };
+
+// Define routes
+reactionRoutes.post('/', createReaction); // Create a new reaction
+reactionRoutes.delete('/:id', deleteReaction); // Delete a reaction by ID
+reactionRoutes.get('/', getReactions); // Get all reactions
+
+export default reactionRoutes;

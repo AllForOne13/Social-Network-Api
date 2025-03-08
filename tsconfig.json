@@ -7,19 +7,15 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src", // updated this line
-    "typeRoots": ["./node_modules/@types"], // updated this line
-    "moduleResolution": "node", // added this line
-    "baseUrl": ".", // added this line
+    "rootDir": "./src",
+    "baseUrl": "./src",
     "paths": {
-      "*": ["node_modules/*"] // added this line
+      "@config/*": ["config/*"],
+      "@seeds/*": ["seeds/*"]
     }
   },
-  "include": [
-    "./src/**/*" // updated this line
-  ],
-  "exclude": [
-    "./node_modules", // updated this line
-    "./dist" // updated this line
-  ]
+  "include": ["./src/**/*"],
+  "exclude": ["./node_modules", "./dist"]
 }
+
+
